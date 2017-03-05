@@ -42,6 +42,8 @@ def resolve(bv,curaddr):
   br.seek(rptr)
   symstr=br.read(bv.get_strings(rptr,1)[0].length)
   log.log_info("symbol:"+symstr)
+  # 最初に解決した関数呼び出し部分に2回目以降は参照するようにする
+  # これによって、ユーザが最初に付けたシンボル名が使える
   if symstr not in __funcList:
     __funcList[symstr] = disas[1]
   arch=Architecture["x86"]
